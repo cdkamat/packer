@@ -271,10 +271,11 @@ aurinstall() {
     cd "$dir/$1"
   else
     cd "$dir"  
-    [[ -d $1/src/build ]] && rm -rf $1/src/build
-    cd "$1"
+    [[ -d "$1/src/build" ]] && rm -rf "$1/src/build"
     wget "http://aur.archlinux.org/packages/$1/$1.tar.gz"
-    tar xf "$1.tar.gz" -C . --no-overwrite-dir
+    tar xf "$1.tar.gz" -C "$dir" --no-overwrite-dir
+    mv "$1.tar.gz" "./$1/"
+    cd "$1"
   fi
 
   # Allow user to edit PKGBUILD
