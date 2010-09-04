@@ -24,7 +24,7 @@ build() {
   msg "GIT checkout done"
   msg "Starting make..."
   
-  install -m 755 -D packer "$startdir/pkg/usr/bin/packer"
-  install -m 644 -D packer.8 "$startdir/pkg/usr/share/man/man8/packer.8"
+  install -m 755 -D $srcdir/$_gitname/packer "$startdir/pkg/usr/bin/packer"
+  install -m 644 -D $srcdir/$_gitname/packer.8 "$startdir/pkg/usr/share/man/man8/packer.8"
 }
 
