@@ -270,12 +270,11 @@ aurinstall() {
   if . "$dir/$1/PKGBUILD" &>/dev/null && ! aurversionisnewer "$1" "$pkgver-$pkgrel"; then
     cd "$dir/$1"
   else
-    [[ -d $dir ]] && rm -rf $dir
-    mkdir -p "$dir"
-    cd "$dir"
-    wget "http://aur.archlinux.org/packages/$1/$1.tar.gz"
-    tar xf "$1.tar.gz"
+    cd "$dir"  
+    [[ -d $1/src/build ]] && rm -rf $1/src/build
     cd "$1"
+    wget "http://aur.archlinux.org/packages/$1/$1.tar.gz"
+    tar xf "$1.tar.gz" -C . --no-overwrite-dir
   fi
 
   # Allow user to edit PKGBUILD
