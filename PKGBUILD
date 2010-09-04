@@ -13,18 +13,18 @@ _gitroot='git://github.com/cdkamat/packer.git'
 _gitname='packer'
 
 build() {
-    cd "$startdir/src/$_gitname"
+  cd ${srcdir}
+  msg "Connecting to GIT server...."
+  if [ -d "${srcdir}/${_gitname}" ] ; then
+    cd ${_gitname} && git checkout master && git pull
+  else
+    git clone ${_gitroot}
+  fi
+
+  msg "GIT checkout done"
+  msg "Starting make..."
   
-    msg "Connecting to github GIT server...."
-    
-    # if [ -d "$startdir/src/$_gitname" ] ; then
-    #     cd $_gitname && git pull origin
-    # else
-    #     git clone "$_gitroot"
-    #     cd $_gitname
-    # fi
-      
-    install -m 755 -D packer "$startdir/pkg/usr/bin/packer"
-    install -m 644 -D packer.8 "$startdir/pkg/usr/share/man/man8/packer.8"
+  install -m 755 -D packer "$startdir/pkg/usr/bin/packer"
+  install -m 644 -D packer.8 "$startdir/pkg/usr/share/man/man8/packer.8"
 }
 
